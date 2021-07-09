@@ -88,7 +88,7 @@ int main(int argc, char * argv[])
     mc_rbdyn::RobotModulePtr obj_mod = mc_rbdyn::RobotLoader::get_robot_module("jrp_bobbin");
     LogRobot::Configuration conf;
     conf.rm = obj_mod;
-    conf.dt = dt;
+    conf.dt = appli.dt;
     {
       conf.id = "control/env_2";
       conf.base = "manip_manager_obj_controlPose";

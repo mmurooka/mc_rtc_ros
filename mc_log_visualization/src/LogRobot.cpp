@@ -23,8 +23,10 @@ LogRobot::LogRobot(const LogRobot::Configuration & config)
 
 void LogRobot::update(const mc_rtc::log::FlatLog & log, size_t i)
 {
-  q = log.get(config_.configuration, i, q);
-  if (!encoders.empty()) {
+  if (config_.configuration.size()) {
+    q = log.get(config_.configuration, i, q);
+  }
+  if (config_.encoders.size()) {
     encoders = log.get(config_.encoders, i, encoders);
   }
   if(config_.base.size())
