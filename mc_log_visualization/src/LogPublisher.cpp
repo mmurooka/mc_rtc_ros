@@ -38,9 +38,10 @@ LogPublisher::LogPublisher(ros::NodeHandle & nh, const std::string & logfile, mc
     }
     else
     {
-      conf.base = "ff";
-      conf.base_rotation = "rpyIn";
-      conf.base_rotation_is_imu = true;
+      // Temporarily update the key for the base link pose of the real robot
+      conf.base = "Observers_CoMObservation_KinematicInertial_posW";
+      // conf.base_rotation = "rpyIn";
+      // conf.base_rotation_is_imu = true;
     }
     real_robot.reset(new LogRobot(conf));
   }
@@ -55,6 +56,10 @@ void LogPublisher::pubThread()
   {
     robot->update(log, cur_i);
     real_robot->update(log, cur_i);
+    for(auto& additional_robot : additional_robots)
+    {
+      additional_robot->update(log, cur_i);
+    }
 
     /* Playback speed logic */
     pub_i++;

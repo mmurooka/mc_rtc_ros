@@ -110,6 +110,7 @@ public:
 
   std::unique_ptr<LogRobot> robot;
   std::unique_ptr<LogRobot> real_robot;
+  std::vector<std::shared_ptr<LogRobot>> additional_robots;
 
   /* UI related */
   mc_rtc::gui::StateBuilder gui;

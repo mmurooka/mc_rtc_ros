@@ -82,6 +82,25 @@ int main(int argc, char * argv[])
 
   mc_rtc::log::info("Replaying log: {}", log);
   LogPublisher appli(*nh, log, mod, dt);
+
+  // Add object
+  {
+    mc_rbdyn::RobotModulePtr obj_mod = mc_rbdyn::RobotLoader::get_robot_module("jrp_bobbin");
+    LogRobot::Configuration conf;
+    conf.rm = obj_mod;
+    conf.dt = dt;
+    {
+      conf.id = "control/env_2";
+      conf.base = "manip_manager_obj_controlPose";
+      appli.additional_robots.push_back(std::make_shared<LogRobot>(conf));
+    }
+    {
+      conf.id = "real/env_2";
+      conf.base = "manip_manager_obj_realPose";
+      appli.additional_robots.push_back(std::make_shared<LogRobot>(conf));
+    }
+  }
+
   appli.run();
 
   return 0;

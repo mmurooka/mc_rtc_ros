@@ -24,7 +24,9 @@ LogRobot::LogRobot(const LogRobot::Configuration & config)
 void LogRobot::update(const mc_rtc::log::FlatLog & log, size_t i)
 {
   q = log.get(config_.configuration, i, q);
-  encoders = log.get(config_.encoders, i, encoders);
+  if (!encoders.empty()) {
+    encoders = log.get(config_.encoders, i, encoders);
+  }
   if(config_.base.size())
   {
     base = log.get(config_.base, i, base);
