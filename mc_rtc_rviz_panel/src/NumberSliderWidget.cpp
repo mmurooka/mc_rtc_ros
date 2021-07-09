@@ -18,7 +18,7 @@ NumberSliderWidget::NumberSliderWidget(const ClientWidgetParam & param, double m
   valueLabel_ = new QLabel(this);
   layout->addWidget(valueLabel_, 0, 1, Qt::AlignCenter);
   slider_ = new QSlider(Qt::Horizontal, this);
-  slider_->setRange(0, 100);
+  slider_->setRange(0, 1000);
   layout->addWidget(slider_, 1, 1);
   connect(slider_, SIGNAL(sliderMoved(int)), this, SLOT(sliderMoved(int)));
   connect(slider_, SIGNAL(sliderPressed()), this, SLOT(sliderPressed()));
@@ -34,14 +34,14 @@ void NumberSliderWidget::update(double data, double min, double max)
   value_ = data;
   min_ = min;
   max_ = max;
-  int slide_value = std::floor(100 * (value_ - min_) / (max_ - min_));
+  int slide_value = std::floor(1000 * (value_ - min_) / (max_ - min_));
   slider_->setValue(slide_value);
   valueLabel_->setText(QString::number(value_));
 }
 
 void NumberSliderWidget::sliderMoved(int value)
 {
-  double v = min_ + value * (max_ - min_) / 100;
+  double v = min_ + value * (max_ - min_) / 1000;
   valueLabel_->setText(QString::number(v));
   client().send_request(id(), v);
 }
