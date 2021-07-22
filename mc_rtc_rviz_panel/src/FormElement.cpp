@@ -338,13 +338,20 @@ ComboInput::ComboInput(QWidget * parent,
 
 void ComboInput::reset()
 {
-  combo_->setCurrentIndex(-1);
-  ready_ = false;
+  if(user_def_)
+  {
+    combo_->setCurrentIndex(def_);
+  }
+  else
+  {
+    combo_->setCurrentIndex(-1);
+  }
+  ready_ = user_def_;
 }
 
 bool ComboInput::changed(bool required, const std::vector<std::string> & values, bool send_index)
 {
-  return changed_(required) || values_ != values || send_index_ != send_index;
+  return changed_(required) || values_ != values || send_index_ != send_index || def_ != def || user_def_ != user_def;
 }
 
 void ComboInput::currentIndexChanged(int idx)
