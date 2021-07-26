@@ -39,7 +39,7 @@ LogPublisher::LogPublisher(ros::NodeHandle & nh, const std::string & logfile, mc
     else
     {
       // Temporarily update the key for the base link pose of the real robot
-      conf.base = "Observers_CoMObservation_KinematicInertial_posW";
+      conf.base = "Observers_MainObserverPipeline_KinematicInertial_posW";
       // conf.base_rotation = "rpyIn";
       // conf.base_rotation_is_imu = true;
     }
